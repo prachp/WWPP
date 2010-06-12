@@ -12,7 +12,9 @@
 
 <p>
   <b>Questions:</b>
-  <%= @event.questions %>
+  <% @event.questions.each do |q| %>
+	<%= q.text %>	
+  <% end%>
 </p>
 
 
