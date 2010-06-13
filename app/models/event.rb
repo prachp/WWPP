@@ -9,9 +9,6 @@ class Event < ActiveRecord::Base
     @questions_text = self.questions_text.split(/\n/)
     @questions_text.each do |text|
       self.questions.create(:text => text) unless text.strip.empty?
-     end
     end
   end
-    
-  
 end
