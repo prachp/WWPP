@@ -1,6 +1,7 @@
 WWPP::Application.routes.draw do |map|
   resources :events
-
+  resources :attendees
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

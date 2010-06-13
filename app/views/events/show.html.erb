@@ -25,6 +25,16 @@
   <% end%>
 </ul>
 
+<div>
+<%= form_for Attendee.new do |f| %>
+   <%= f.label :name, "Your name:" %>
+   <%= f.text_field :name %>
+   <%= f.hidden_field :event_id, {:value=>@event.id} %>
+   <%= f.submit  "Join" %>
+<% end %>    
+</div>
+
+
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
