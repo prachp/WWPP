@@ -1,4 +1,39 @@
-<%= @attendee.name %>
-<%= @attendee.event_id %>
-<%= @attendee.id %>
-<%= @event.title %>
+
+<% attendees = Attendee.where(:event_id => @event.id)
+   attendees = attendees.order(:id)
+   answers = Answer.where()
+%>
+<table>
+  <tbody>
+    <tr>
+      <th>Questions</th>
+      <% attendees.each do |a| %>
+        <th><%= a.name %></th>
+      <% end %>
+    </tr>
+    <% @event.questions.each do |q| %>
+      <tr>
+        <td><%= q.text %></td>
+        <% answers = Answer.where(:question_id => q.id).order(:attendee_id) %>
+        <% answers.each do |ans| %>
+          <% puts ans.attendee_id 
+             puts :id
+             puts 'attendee id'
+          %>
+          <% if ans.attendee_id.to_i == params[:id].to_i %>
+            <td>
+              <select name='question_<%= :question_id %>'>
+              	<option value='0'  <% if ans.answer == 0 %> selected="selected" <% end %>>-</option>
+                <option value='1'  <% if ans.answer == 1 %> selected="selected" <% end %>>X</option>
+                <option value='2'  <% if ans.answer == 2 %> selected="selected" <% end %>>△</option>
+                <option value='3'  <% if ans.answer == 3 %> selected="selected" <% end %>>O</option>
+              </select>
+            </td>
+          <% else %>
+          <td><%= ans.answer %></td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end%>
+  </tbody>
+</table>
