@@ -1,14 +1,12 @@
 class Event < ActiveRecord::Base
   has_many :questions
-  has_many :attendees
-  attr_accessor :questions_text
-  after_create :convert_text_to_questions
+  has_many :attendees, :order => "id DESC"
+  attr_reader :questions_text
 
-  protected
-  def convert_text_to_questions
-    @questions_text = self.questions_text.split(/\n/)
-    @questions_text.each do |text|
-      self.questions.create(:text => text) unless text.strip.empty?
+  def questions_text=(text)
+    @qt = text.split(/\n/)
+    @qt.each do |text|
+      self.questions.build(:text => text) unless text.strip.empty?
     end
   end
 end
