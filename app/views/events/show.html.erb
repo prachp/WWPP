@@ -11,30 +11,31 @@
 </p>
 
 <p>Questions:</p>
-<ul>
+<table border="1">
+  <tr>
+    <th>&nbsp;</th>
+  <% @event.attendees.each do |t| %>
+    <th><%= link_to t.name, edit_attendee_path(t) %></th>
+  <% end %>
+  </tr>
   <% @event.questions.each do |q| %>
-  <li>
-	<%= q.text %>
-  <select name='question_<%= q.id %>'>
-  	<option value='0'>-</option>
-    <option value='1'>X</option>
-    <option value='2'>△</option>
-    <option value='3'>O</option>
-  </select>
-  </li>
-  <% end%>
-</ul>
+  <tr>
+    <td><%= h q.text %></td>
+    <% q.answers.each do |answer| %>
+    <td><%= h answer.answer %></td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
 
 <div>
-<%= form_for Attendee.new do |f| %>
+   <%= form_for Attendee.new  do |f| %>
    <%= f.label :name, "Your name:" %>
    <%= f.text_field :name %>
    <%= f.hidden_field :event_id, {:value=>@event.id} %>
    <%= f.submit  "Join" %>
-<% end %>    
+<% end %>
 </div>
-
-
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
