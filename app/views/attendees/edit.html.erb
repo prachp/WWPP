@@ -9,7 +9,7 @@
   <b>Description:</b>
   <%= @event.description %>
 </p>
-<%= form_for @attendee   do |f| %>
+<%= form_for @attendee do |f| %>
 <p>Questions:</p>
 <table border="1">
   <tr>
@@ -22,20 +22,22 @@
   <tr>
     <td><%= h q.text %></td>
     <% @event.attendees.each do |t| %>
-      <% fields_for "attendee[answers_attr][]" do |answer_f| %>
       <% if t.id == @attendee.id %>
-      <td>
-        <%= answer_f.select :answer,  
-        options_for_select([['-', 0], 
+      <% @ans = Answer.first(:conditions =>["question_id=? AND attendee_id=?", q.id,t.id])%>
+        <td><%= t.name %>
+           <%= fields_for "attendee[answers][]", @ans do |answer_f| %>
+          <%= answer_f.select :answer,  
+          options_for_select([['-', 0], 
                           ['X',1], 
                           ['△',2],
-                          ['O',3]], 0) %>
-      </td>
+                          ['O',3]], @ans.answer) %>
+        <% end %>
+        </td>
+        
       <% else %>
-    <td><%= h answer.answer %></td>
+    <td><%= Answer.first(:conditions =>["question_id=? AND attendee_id=?", q.id,t.id]).answer %></td>
       <% end %>
       <% end %>
-    <% end %>
   </tr>
   <% end %>
 </table>

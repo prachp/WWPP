@@ -14,15 +14,16 @@
 <table border="1">
   <tr>
     <th>&nbsp;</th>
-  <% @event.attendees.each do |t| %>
+  <% for t in @event.attendees %>
     <th><%= link_to t.name, edit_attendee_path(t) %></th>
   <% end %>
   </tr>
   <% @event.questions.each do |q| %>
   <tr>
     <td><%= h q.text %></td>
-    <% q.answers.each do |answer| %>
-    <td><%= h answer.answer %></td>
+    <% for answer in q.answers %>
+    
+    <td><%=  answer.answer %></td>
     <% end %>
   </tr>
   <% end %>

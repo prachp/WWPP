@@ -14,7 +14,9 @@ class AttendeesController < ApplicationController
   def update
     @attendee = Attendee.find(params[:id])
     respond_to do |format|
-      if @attendee.update_attributes(params[:attendee])
+      answers = params[:attendee][:answers]
+     
+      if Answer.update(answers.keys, answers.values)#@attendee.update_attributes(params[:attendee])
         format.html { redirect_to(@attendee.event, :notice => 'Attendance was successfully updated.') }
         format.xml  { head :ok }
       else
