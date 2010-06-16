@@ -23,7 +23,7 @@
     <td><%= h q.text %></td>
     <% for answer in q.answers %>
     
-    <td><%=  answer.answer %></td>
+    <td><%=  @signs[answer.answer] %></td>
     <% end %>
   </tr>
   <% end %>
