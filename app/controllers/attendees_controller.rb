@@ -9,6 +9,7 @@ class AttendeesController < ApplicationController
   def edit
     @attendee = Attendee.find(params[:id])
     @event = Event.find(@attendee.event.id)
+    @signs = ['-','X','△','O']
   end
   
   def update

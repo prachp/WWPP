@@ -37,7 +37,7 @@
         </td>
         
       <% else %>
-    <td><%= (t.answer_for q).answer %></td>
+    <td><%= @signs[(t.answer_for q).answer] %></td>
       <% end %>
       <% end %>
   </tr>
