@@ -23,8 +23,6 @@
     <td><%= h q.text %></td>
     <% @event.attendees.each do |t| %>
       <% if t.id == @attendee.id %>
-      
-      
       <% @ans = t.answer_for q %>
         <td>
         <%= fields_for "attendee[answers][]", @ans do |answer_f| %>
@@ -37,7 +35,7 @@
         </td>
         
       <% else %>
-    <td><%= @signs[(t.answer_for q).answer] %></td>
+    <td><%= sign (t.answer_for q).answer %></td>
       <% end %>
       <% end %>
   </tr>
