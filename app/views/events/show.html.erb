@@ -19,12 +19,8 @@
   <% end %>
   </tr>
   <% @event.questions.each do |q| %>
-  <% if q.id == @bestResultId #add inline style for testing%>
-    <tr class="best-result" style="background-color:#ECEFFA;">
-  <% else %>
-    <tr>
-  <% end %>
-    <td><%= h q.text %></td>
+  <tr>
+    <td><%= @best["#{q.id}"] %> <%= h q.text %></td>
     <% for answer in q.answers %>
     
     <td><%=  @signs[answer.answer] %></td>

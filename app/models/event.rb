@@ -10,28 +10,38 @@ class Event < ActiveRecord::Base
     end
   end
   
-  def getBestResultId # might need to return sorted array or return all equal points, what do you think?
-    @max = -1
-    @best_question_id = 0
+  def get_best_match 
+    g = []
     self.questions.each do |q|
-      @count = 0
+      count = 0
       q.answers.each do |ans|
         if ans.answer == 3 # not sure about weight. Now, OK = 3 points, not sure 2, "X" and "-" zero
-          @count += 2
+          count += 2
         elsif ans.answer == 2
-          @count += 1
+          count += 1
         end
       end
-      
-      if @count > @max
-        @max = @count
-        @best_question_id = q.id
-      end
-  
+      g << [q.id,count]
     end
-    
-    @best_question_id
-    
+    g.sort! {|e1,e2| e2[1]-e1[1]}
+    place = []
+    score = g[0][1]
+    d = []
+    g.each do |e|
+      if e[1] != score
+        place << d
+        d = [e[0]]
+        score = e[1]
+      else
+        d << e[0]
+      end
+    end
+    place << d
+    answer = {}
+    place.each_with_index do |e,i|
+      e.each { |j| answer["#{j}"] = i}
+    end
+    answer
   end
   
 end
