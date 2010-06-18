@@ -5,9 +5,26 @@ class Event < ActiveRecord::Base
 
   def questions_text=(text)
     @qt = text.split(/\n/)
-    @qt.each do |text|
-      self.questions.build(:text => text) unless text.strip.empty?
+    @qt.each do |text| 
+      if (!Question.find_by_text(text) && !text.strip.empty?)
+        @q = self.questions.create(:text => text)
+        @q.save
+        self.attendees.each do |attendee|
+          puts "attendee ---- "
+          puts @q.id
+          attendee.answers.build(:question_id => @q.id, :answer => 0)
+        end
+      end
     end
+  end
+  
+  def getQuestionsText
+    @result = ""
+    self.questions.each do |q|
+      @result += q.text +
+      "\n"
+    end
+    @result
   end
   
   def getBestResultId # might need to return sorted array or return all equal points, what do you think?

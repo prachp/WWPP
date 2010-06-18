@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :questions_text %><br />
-    <%= f.text_area :questions_text %>
+    <%= f.text_area :questions_text, :value => @questions_text%>
   </div>
   <div class="actions">
     <%= f.submit %>
