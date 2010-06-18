@@ -15,11 +15,8 @@ class Event < ActiveRecord::Base
         @q = self.questions.create(:text => text)
         @q.save
         self.attendees.each do |attendee|
-          puts "attendee ---- "
-          puts @q.id
           ans = attendee.answers.create(:question_id => @q.id, :answer => 0)
           ans.save
-          puts ans.id
         end
       elsif (!self.id)
         self.questions.build(:text => text)
