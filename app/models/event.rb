@@ -5,15 +5,24 @@ class Event < ActiveRecord::Base
 
   def questions_text=(text)
     @qt = text.split(/\n/)
+    self.questions.each do |qs|
+      if(!@qt.include? qs.text)
+        qs.destroy
+      end
+    end
     @qt.each do |text| 
-      if (!Question.find_by_text(text) && !text.strip.empty?)
+      if (self.id && !Question.find_by_text(text) && !text.strip.empty?)
         @q = self.questions.create(:text => text)
         @q.save
         self.attendees.each do |attendee|
           puts "attendee ---- "
           puts @q.id
-          attendee.answers.build(:question_id => @q.id, :answer => 0)
+          ans = attendee.answers.create(:question_id => @q.id, :answer => 0)
+          ans.save
+          puts ans.id
         end
+      elsif (!self.id)
+        self.questions.build(:text => text)
       end
     end
   end

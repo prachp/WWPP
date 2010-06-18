@@ -6,7 +6,7 @@ class Attendee < ActiveRecord::Base
     logger.info "question #{question.id}"
     @answer = self.answers.find(:first, :conditions => {:question_id => question.id})
     unless @answer
-      @answer = self.answers.create(:question_id=>question.id)
+      @answer = self.answers.create(:answer => 0, :question_id=>question.id)
     end
     @answer
   end
