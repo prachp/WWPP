@@ -11,7 +11,7 @@
 </p>
 <%= form_for @attendee do |f| %>
 <p>Questions:</p>
-<table border="1">
+<table class='event_table'>
   <tr>
     <th>&nbsp;</th>
   <% @event.attendees.each do |t| %>
@@ -20,7 +20,7 @@
   </tr>
   <% @event.questions.each do |q| %>
   <tr>
-    <td><%= h q.text %></td>
+    <td class="question_texts"><%= h q.text %></td>
     <% @event.attendees.each do |t| %>
       <% if t.id == @attendee.id %>
       <% @ans = t.answer_for q %>

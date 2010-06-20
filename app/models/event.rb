@@ -42,6 +42,8 @@ class Event < ActiveRecord::Base
           count += 2
         elsif ans.answer == 2
           count += 1
+        elsif ans.answer == 1
+          count -= 2
         end
       end
       g << [q.id,count]

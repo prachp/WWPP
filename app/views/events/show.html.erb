@@ -1,17 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
+<p class="event_title">
   <%= @event.title %>
 </p>
 
-<p>
-  <b>Description:</b>
+<p class="event_desc">
   <%= @event.description %>
 </p>
 
-<p>Questions:</p>
-<table border="1">
+<table class="event_table">
   <tr>
     <th>&nbsp;</th>
   <% for t in @event.attendees %>
@@ -19,8 +16,15 @@
   <% end %>
   </tr>
   <% @event.questions.each do |q| %>
-  <tr>
-    <td><%= @best["#{q.id}"] %> <%= h q.text %></td>
+  <% 
+  if @best["#{q.id}"] == 0
+    @class = "selected"
+  else
+    @class = ""
+  end
+  %>
+  <tr class="<%= @class %>">
+    <td class="question_texts"> <%= q.text %></td>
     <% for answer in q.answers %>
     
     <td><%=  @signs[answer.answer] %></td>
